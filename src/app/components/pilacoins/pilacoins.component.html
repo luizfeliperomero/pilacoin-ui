@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="header">
+    <div class="info">
+      <p class="total">Total: <strong>{{ totalPilacoins }}</strong></p>
+    </div>
+    <p class="title">PILACOINS</p>
+    <input class="search" placeholder="Pesquisar">
+  </div>
+  <div class="pilacoins">
+    @for (pilacoin of pilacoins; track pilacoin.id) {
+      <app-pilacoin [pilacoin]="pilacoin"></app-pilacoin>
+    }
+  </div>
+</div>

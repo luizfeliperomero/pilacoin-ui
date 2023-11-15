@@ -1,0 +1,50 @@
+.container {
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.title {
+  color: #2aaa8a;
+  font-size: 30px;
+}
+
+.search {
+  width: 400px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #f0efef;
+}
+
+.pilacoins {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.total {
+  color: #54514d;
+  font-size: 16px;
+}
+
+input {
+  border: none;
+  text-align: center;
+  font-size: 16px;
+}
+
+input:focus {
+  border: none;
+}
+
+::placeholder {
+  text-align: center;
+  font-size: 16px;
+}
