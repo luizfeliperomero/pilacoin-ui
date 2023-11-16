@@ -27,8 +27,8 @@ export class StompService {
 
   private subscribeToTopic(topic: string, callback: any): void {
     this.stompClient.subscribe(topic, (data): any => {
-      console.log("TOPIIIIIIIIIIIIIIIIIC")
-      callback();
+        data = JSON.parse(data.body);
+        callback(data);
     })
   }
 }
