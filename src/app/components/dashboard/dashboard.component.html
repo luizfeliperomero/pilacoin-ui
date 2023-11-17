@@ -5,15 +5,16 @@
     <div class="serverDown">
       <button class="miningBtn down" disabled>
         <fa-icon [icon]="faScrewdriverWrench" size="sm"></fa-icon>
-        <p>Server Down</p>
+        <p>Fora do Ar</p>
         <div></div>
       </button>
       <app-server-down-msg></app-server-down-msg>
     </div>
-    } @else if (isServerHealth && !mining){
+    } @else if (isServerHealth){
+    @if(!mining) {
       <div class="moduleContainer notMining pilacoin">
         <h2>Pilacoin</h2>
-        <button class="miningBtn" (click)="startMining()">
+        <button class="miningBtn" (click)="startMiningPilacoins()">
           <fa-icon [icon]="faHammer" size="sm"></fa-icon>
           <p>MINERAR</p>
           <div></div>
@@ -47,4 +48,27 @@
         </div>
       </div>
       }
+      @if(!miningBlocks) {
+      <div class="moduleContainer notMining pilacoin">
+        <h2>Blocos</h2>
+        <button class="miningBtn" (click)="startMiningBlocks()">
+          <fa-icon [icon]="faHammer" size="sm"></fa-icon>
+          <p>MINERAR</p>
+          <div></div>
+        </button>
+      </div>
+      }  @else {
+      <div class="moduleContainer notMining pilacoin">
+        <h2>Blocos</h2>
+        <div class="miningMsg">
+          <p>Minerando</p>
+        </div>
+          <button class="stopMiningBtn" (click)="stopMiningBlocks()">
+            <fa-icon [icon]="faStop" size="sm"></fa-icon>
+            <p>PARAR</p>
+            <div></div>
+          </button>
+      </div>
+      }
+    }
 </div>

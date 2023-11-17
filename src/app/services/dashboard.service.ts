@@ -14,11 +14,5 @@ export class DashboardService {
     return inject(HttpClient).get<any>("http://192.168.1.110:8080/health");
   }
 
-  public startMining(): Observable<any> {
-    return this.http.get<any>("http://192.168.1.110:8080/startMining");
-  }
 
-  public stopMining(): Observable<any> {
-    return this.http.get<any>("http://192.168.1.110:8080/stop");
-  }
 }
