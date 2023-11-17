@@ -8,27 +8,28 @@ import { webSocket } from 'rxjs/webSocket';
   providedIn: 'root'
 })
 export class StompService {
+  private url: string = "http://192.168.1.110:8080";
 
   socket = new SockJS('http://192.168.1.110:8080/mining');
   stompClient = Stomp.over(this.socket);
 
   constructor() { }
 
-  subscribe(topic: string, callback: any): void {
+  subscribe(topic: string, callback: any, id: any): void {
     const connected: boolean = this.stompClient.connected;
     if(connected) {
-      this.subscribeToTopic(topic, callback);
+      this.subscribeToTopic(topic, callback, id);
       return;
     }
     this.stompClient.connect({}, (): any => {
-      this.subscribeToTopic(topic, callback);
+      this.subscribeToTopic(topic, callback, id);
     })
   }
 
-  private subscribeToTopic(topic: string, callback: any): void {
+  private subscribeToTopic(topic: string, callback: any, id: any): void {
     this.stompClient.subscribe(topic, (data): any => {
         data = JSON.parse(data.body);
         callback(data);
-    })
+    }, id)
   }
 }

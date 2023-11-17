@@ -22,15 +22,14 @@ export class DashboardComponent {
   faScrewdriverWrench = faScrewdriverWrench;
   faStop = faStop;
   mining: boolean;
+  pilacoins_total = signal<number>(0);
   barChartDataRecord: Record<string, number> = {};
   barChartDataArray = signal<any[][]>(null);
   columnChartDataRecord: Record<string, number> = {};
   columnChartDataArray = signal<any[][]>(null);
-  ms: any = '0' + 0;
-  sec: any = '0' + 0;
-  min: any = '0' + 0;
-  hr: any = '0' + 0;
-  startTimer: any;
+  totalPilacoinsHeader = { id: "total_pilacoins_cli" }
+  pilacoinsFoundPerThreadHeader = { id: "pilacoins_found_per_thread_cli" }
+  pilacoinsFoundPerDifficultyHeader = { id: "pilacoins_found_per_difficulty_cli" }
   running;
 
   isServerHealth: boolean;
@@ -67,11 +66,12 @@ export class DashboardComponent {
           return Object.entries(this.barChartDataRecord).map(([key, value]) => [key, value]);
       });
       this.drawCharts();
-    });
+    }, this.pilacoinsFoundPerDifficultyHeader);
   }
 
   getPilacoinsFoundPerThread() {
     this.stompService.subscribe("/topic/pilacoins_found_per_thread", (data: any) => {
+        this.getTotalPilacoins();
         let entries = Object.entries(data);
 
       entries.forEach(([key, value]: [string, number]) => {
@@ -82,11 +82,8 @@ export class DashboardComponent {
       this.columnChartDataArray.update(() => {
         return Object.entries(this.columnChartDataRecord).map(([key, value]) => [key, value]);
       });
-
-      console.log(this.columnChartDataRecord);
-      console.log(this.columnChartDataArray());
       this.drawCharts();
-    });
+    }, this.pilacoinsFoundPerThreadHeader);
   }
 
 
@@ -102,31 +99,6 @@ export class DashboardComponent {
   }
 
   startMining() {
-    if(!this.running) {
-      this.startTimer = setInterval(() => {
-        this.ms++;
-        this.ms = this.ms < 10 ? '0' + this.ms: this.ms;
-        if(this.ms === 100) {
-          this.sec++;
-          this.sec = this.sec < 10 ? '0' + this.sec : this.sec;
-          this.ms = '0' + 0;
-        }
-        if(this.sec === 60) {
-          this.min++;
-          this.min = this.min < 10 ? '0' + this.min : this.min;
-          this.sec = '0' + 0;
-        }
-        if(this.min === 60) {
-          this.hr++;
-          this.hr = this.hr < 10 ? '0' + this.hr : this.hr;
-          this.sec = '0' + 0;
-        }
-      }, 10);
-    }
-    localStorage.setItem("ms", this.ms);
-    localStorage.setItem("sec", this.sec);
-    localStorage.setItem("min", this.min);
-    localStorage.setItem("hr", this.hr);
     this.dashboardService.startMining().subscribe(data => {
       this.mining = true;
       localStorage.setItem("mining", JSON.stringify(this.mining));
@@ -134,7 +106,6 @@ export class DashboardComponent {
   }
 
     stop(): void {
-      clearInterval(this.startTimer);
       this.running = false;
       this.mining = false;
       this.isServerHealth = false;
@@ -142,4 +113,9 @@ export class DashboardComponent {
       this.dashboardService.stopMining().subscribe();
     }
 
+    getTotalPilacoins() {
+      this.stompService.subscribe("/topic/total_pilacoins", (data: number) => {
+        this.pilacoins_total.set(data);
+      }, this.totalPilacoinsHeader);
+    }
 }

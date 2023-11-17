@@ -6,7 +6,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PilacoinService {
-
+  private url: string = "http://192.168.1.110:8080";
 
   getPilacoins(): Observable<any>{
     return inject(HttpClient).get<any>("http://192.168.1.110:8080/pilacoin/getAll");

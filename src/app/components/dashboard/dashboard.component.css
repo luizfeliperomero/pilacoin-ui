@@ -1,7 +1,11 @@
 .container {
-  display: flex;
   flex-direction: column;
+  display: flex;
+  justify-content: flex-start;
   gap: 50px;
+  padding: 5%;
+  background-color: #36454F;
+  height: 100%;
 }
 .serverDown {
   display: flex;
@@ -24,7 +28,6 @@
 }
 
 .miningBtn {
-  margin-top: 5%;
   padding: 5px;
   width: 300px;
   height: 45px;
@@ -46,6 +49,7 @@
 }
 
 .miningBtn.down {
+  margin-top: 5%;
   background-color: #808080;
   color: #fff;
 }
@@ -68,6 +72,7 @@
 .miningHeader {
   display: flex;
   justify-content: space-evenly;
+  width: 100%;
   padding: 20px;
   align-items: center;
 }
@@ -92,5 +97,22 @@
 	}
 }
 
-.stopwatch {
+.moduleContainer {
+  display: flex;
+  box-shadow: 0 4px 8px 0 #2aaa8a;
+  padding: 20px;
+  padding-top: 5px;
+  border-radius: 15px;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  gap: 20px;
 }
+
+.moduleContainer.notMining {
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
+
+

@@ -5,9 +5,18 @@
   align-items: center;
 }
 .serverDownMsg {
-  display: flex;
-  padding: 10px;
+  border: 10px solid pink;
   border-radius: 10px;
+  border-image: repeating-linear-gradient(
+    -55deg,
+    #000,
+    #000 20px,
+    #ffb101 20px,
+    #ffb101 40px
+  ) 10;
+  display: flex;
+  padding: 20px;
+  font-weight: bold;
   color: #fff;
   background-color: #324242;
   flex-direction: column;

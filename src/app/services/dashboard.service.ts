@@ -6,6 +6,7 @@ import { Observable, of} from 'rxjs';
   providedIn: 'root'
 })
 export class DashboardService {
+  private url: string = "http://192.168.1.110:8080";
 
   constructor(private http: HttpClient) { }
 

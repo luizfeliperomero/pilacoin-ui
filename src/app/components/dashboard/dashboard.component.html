@@ -11,34 +11,37 @@
       <app-server-down-msg></app-server-down-msg>
     </div>
     } @else if (isServerHealth && !mining){
-      <button class="miningBtn" (click)="startMining()">
-        <fa-icon [icon]="faHammer" size="sm"></fa-icon>
-        <p>MINERAR</p>
-        <div></div>
-      </button>
-      } @else {
-      <div class="miningHeader">
-        <div class="sw-container">
-          <div class="stopwatch">
-            <span>{{ hr }} : </span>
-            <span>{{ min }} : </span>
-            <span>{{ sec }} : </span>
-            <span>{{ ms }}</span>
-          </div>
-        </div>
-        <div class="miningMsg">
-          <p>Minerando</p>
-        </div>
-        <button class="stopMiningBtn" (click)="stop()">
-          <fa-icon [icon]="faStop" size="sm"></fa-icon>
-          <p>PARAR</p>
+      <div class="moduleContainer notMining pilacoin">
+        <h2>Pilacoin</h2>
+        <button class="miningBtn" (click)="startMining()">
+          <fa-icon [icon]="faHammer" size="sm"></fa-icon>
+          <p>MINERAR</p>
           <div></div>
         </button>
       </div>
-      }
-    <div class="charts">
-      <div class="chart">
-        <div id="columnChart"></div>
+      } @else {
+      <div class="moduleContainer mining pilacoin">
+        <h2>Pilacoin</h2>
+        <div class="miningHeader">
+          <div class="sw-container">
+            <div>
+              <span>Minerados: {{ pilacoins_total() }}</span>
+            </div>
+          </div>
+          <div class="miningMsg">
+            <p>Minerando</p>
+          </div>
+          <button class="stopMiningBtn" (click)="stop()">
+            <fa-icon [icon]="faStop" size="sm"></fa-icon>
+            <p>PARAR</p>
+            <div></div>
+          </button>
+        </div>
+        <div class="charts">
+          <div class="chart">
+            <div id="columnChart"></div>
+          </div>
+        </div>
       </div>
-    </div>
+      }
 </div>
