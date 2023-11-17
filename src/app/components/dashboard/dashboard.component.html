@@ -25,7 +25,7 @@
         <div class="miningHeader">
           <div class="sw-container">
             <div>
-              <span>Minerados: {{ pilacoins_total() }}</span>
+              <span>Minerados: <strong>{{ pilacoins_total() }}</strong></span>
             </div>
           </div>
           <div class="miningMsg">
@@ -40,6 +40,9 @@
         <div class="charts">
           <div class="chart">
             <div id="columnChart"></div>
+          </div>
+          <div class="chart">
+            <div id="barChart"></div>
           </div>
         </div>
       </div>

@@ -49,7 +49,6 @@ export class DashboardComponent {
   }
 
   ngOnInit() {
-    //this.getPilacoinsFoundPerDifficulty();
     this.mining = localStorage.getItem("mining") == "true";
     this.getPilacoinsFoundPerThread();
     google.charts.load('current', {packages: ['corechart']});
@@ -59,10 +58,13 @@ export class DashboardComponent {
   getPilacoinsFoundPerDifficulty() {
     this.stompService.subscribe("/topic/pilacoins_found_per_difficulty", (data: any) => {
       let entries = Object.entries(data);
-      let [key, value] = entries[0];
-      let numValue = value as number;
-      this.barChartDataRecord[key] = numValue;
-      this.barChartDataArray.update((currentValue: any[][]) => {
+
+      entries.forEach(([key, value]: [string, number]) => {
+        let numValue = value as number;
+        this.barChartDataRecord[key] = numValue;
+      });
+
+      this.barChartDataArray.update(() => {
           return Object.entries(this.barChartDataRecord).map(([key, value]) => [key, value]);
       });
       this.drawCharts();
@@ -88,13 +90,13 @@ export class DashboardComponent {
 
 
   drawCharts() {
-      //let barChartData = google.visualization.arrayToDataTable([["Dificuldade", "Pilacoins"]].concat(this.barChartDataArray()));
+      let barChartData = google.visualization.arrayToDataTable([["Dificuldade", "Pilacoins"]].concat(this.barChartDataArray()));
       let columnChartData = google.visualization.arrayToDataTable([["Thread", "Pilacoins"]].concat(this.columnChartDataArray()));
 
-     // let barChart = new google.visualization.BarChart(document.getElementById("barChart"));
+      let barChart = new google.visualization.BarChart(document.getElementById("barChart"));
       let columnChart = new google.visualization.ColumnChart(document.getElementById("columnChart"));
 
-      // barChart.draw(barChartData, null);
+      barChart.draw(barChartData, null);
       columnChart.draw(columnChartData, null);
   }
 
@@ -115,6 +117,7 @@ export class DashboardComponent {
 
     getTotalPilacoins() {
       this.stompService.subscribe("/topic/total_pilacoins", (data: number) => {
+        this.getPilacoinsFoundPerDifficulty();
         this.pilacoins_total.set(data);
       }, this.totalPilacoinsHeader);
     }
