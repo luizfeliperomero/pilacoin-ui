@@ -23,6 +23,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@types/stompjs": "^2.3.8",
     "httpclient": "^0.1.0",
     "rxjs": "~7.8.0",
     "sockjs-client": "^1.6.1",

@@ -2,4 +2,6 @@
 div.content {
   margin-left: 200px;
   height: 100%;
+  overflow: auto;
+  overflow-x: hidden;
 }

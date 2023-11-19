@@ -15,18 +15,21 @@ export class StompService {
 
   constructor() { }
 
-  subscribe(topic: string, callback: any, id: any): void {
+  subscribe(topic: string, callback: any, id: any): any {
+    console.log(`${topic}: 1`);
     const connected: boolean = this.stompClient.connected;
     if(connected) {
-      this.subscribeToTopic(topic, callback, id);
-      return;
+    console.log(`${topic}: 2`);
+      return this.subscribeToTopic(topic, callback, id);
     }
     this.stompClient.connect({}, (): any => {
-      this.subscribeToTopic(topic, callback, id);
+    console.log(`${topic}: 3`);
+      return this.subscribeToTopic(topic, callback, id);
     })
   }
 
-  private subscribeToTopic(topic: string, callback: any, id: any): any {
+  private subscribeToTopic(topic: string, callback: any, id: any): Object {
+    console.log(`${topic}: 4`);
     return this.stompClient.subscribe(topic, (data): any => {
         data = JSON.parse(data.body);
         callback(data);
