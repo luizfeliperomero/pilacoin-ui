@@ -79,7 +79,7 @@ export class DashboardComponent {
       this.getPilacoinsFoundPerThread();
     }
     this.miningBlocks = localStorage.getItem("miningBlocks") == "true";
-    google.charts.load('current', {packages: ['corechart']});
+    google.charts.load('current', {packages: ['corechart', 'bar']});
   }
 
   getPilacoinsFoundPerDifficulty() {
@@ -118,14 +118,22 @@ export class DashboardComponent {
 
   drawColumnChart(data) {
       let columnChartData = google.visualization.arrayToDataTable([["Thread", "Pilacoins"]].concat(data));
-      let columnChart = new google.visualization.ColumnChart(document.getElementById("columnChart"));
-      columnChart.draw(columnChartData, {title: "Pilacoins por Thread"});
+      let columnChart = new google.charts.Bar(document.getElementById("columnChart"));
+      let options = {
+        title: "Pilacoins por Thread",
+        colors:['#FF7F50']
+      }
+      columnChart.draw(columnChartData, google.charts.Bar.convertOptions(options));
   }
 
   drawBarChart(data) {
       let barChartData = google.visualization.arrayToDataTable([["Dificuldade", "Pilacoins"]].concat(data));
       let barChart = new google.visualization.BarChart(document.getElementById("barChart"));
-      barChart.draw(barChartData, {title: "Pilacoins por Dificuldade"});
+      let options = {
+        title: "Pilacoins por Dificuldade",
+        colors: ['#00008B']
+      }
+      barChart.draw(barChartData, options);
   }
 
   startMiningPilacoins() {

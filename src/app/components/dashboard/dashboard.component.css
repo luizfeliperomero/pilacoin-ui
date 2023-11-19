@@ -6,6 +6,8 @@
   padding: 5%;
   background-color: #36454F;
   height: 100%;
+  top:0; left:0;
+  z-index:-1;
 }
 .serverDown {
   display: flex;
@@ -113,6 +115,3 @@
   margin-left: 30%;
   margin-right: 30%;
 }
-
-
-
