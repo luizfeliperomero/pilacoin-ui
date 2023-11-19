@@ -38,6 +38,9 @@
             <div></div>
           </button>
         </div>
+        @if(barChartDataArray() == null && columnChartDataArray() == null) {
+        <app-spinner></app-spinner>
+        }
         <div class="charts">
           <div class="chart">
               <div id="columnChart"></div>
@@ -49,7 +52,7 @@
       </div>
       }
       @if(!miningBlocks) {
-      <div class="moduleContainer notMining pilacoin">
+      <div class="moduleContainer notMining block">
         <h2>Blocos</h2>
         <button class="miningBtn" (click)="startMiningBlocks()">
           <fa-icon [icon]="faHammer" size="sm"></fa-icon>
@@ -58,7 +61,7 @@
         </button>
       </div>
       }  @else {
-      <div class="moduleContainer notMining pilacoin">
+      <div class="moduleContainer notMining block">
         <h2>Blocos</h2>
         <div class="miningMsg">
           <p>Minerando</p>
