@@ -22,4 +22,8 @@ export class PilacoinService {
     return this.http.get<any>("http://192.168.1.110:8080/pilacoin/stopMining");
   }
 
+  public getMiningData(): Observable<any> {
+    return this.http.get<any>("http://192.168.1.110:8080/pilacoin_mining_data/list");
+  }
+
 }

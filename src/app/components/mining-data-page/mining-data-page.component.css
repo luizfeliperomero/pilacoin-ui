@@ -1,0 +1,16 @@
+.header {
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+h2 {
+  color: #2aaa8a;
+}
+
+.content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}

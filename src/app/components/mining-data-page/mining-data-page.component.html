@@ -1,0 +1,8 @@
+<div class="header">
+  <h2>Dados de Mineração de Pilacoins</h2>
+</div>
+<div class="content">
+  @for(pilacoinMiningData of pilacoinMiningDataArr; track pilacoinMiningData.pilacoinMiningDataId) {
+    <app-pilacoin-mining-data [pilacoinMiningData]="pilacoinMiningData"></app-pilacoin-mining-data>
+  }
+</div>

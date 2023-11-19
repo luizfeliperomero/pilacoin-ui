@@ -1,0 +1,40 @@
+<div class="container">
+<div class="titles">
+  <p>Geral</p>
+  <p>Pilacoins por Threads</p>
+  <p>Pilacoins por Dificuldade</p>
+</div>
+<div class="sub_container">
+  <div class="header">
+    <div class="field">
+      <span class="description">Data:</span>
+      <span class="value">{{ pilacoinMiningData.date }}</span>
+    </div>
+    <div class="field">
+      <span class="description">Duração:</span>
+      <span class="value">{{ pilacoinMiningData.timeElapsed}}</span>
+    </div>
+    <div class="field">
+      <span class="description">Minerados:</span>
+      <span class="value">{{ pilacoinMiningData.pilacoins_mined }}</span>
+    </div>
+  </div>
+    <div class="body_container">
+      <div *ngFor="let entry of pilacoinMiningData.pilacoinsFoundPerThread | keyvalue">
+        <span class="field">
+          <span class="key">{{ entry.key }}:</span>
+          <span class="value">{{ entry.value }}</span>
+        </span>
+      </div>
+    </div>
+    <div class="body_container">
+      <div *ngFor="let entry of pilacoinMiningData.pilacoinsFoundPerDifficulty | keyvalue">
+        <span class="field">
+          <span class="difficulty">{{ entry.key }}:</span>
+          <span class="value">{{ entry.value }}</span>
+        </span>
+      </div>
+    </div>
+
+</div>
+</div>

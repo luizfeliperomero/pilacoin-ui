@@ -1,0 +1,63 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  transition-duration: 1s;
+}
+
+.container:hover {
+  transform: scale(1.03);
+}
+
+.sub_container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  border: 1px solid;
+  border-radius: 10px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  padding: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.field {
+  gap: 5px;
+  display: flex;
+  align-items: baseline;
+}
+
+.description {
+  font-size: 14px;
+}
+
+.value {
+  font-weight: bold;
+}
+
+.body {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.difficulty {
+  font-size: 10px;
+}
+
+.titles {
+  display: flex;
+  justify-content: space-around;
+  font-size: 14px;
+  border: 1px solid;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom: 0px;
+  font-weight: bold;
+}
+
