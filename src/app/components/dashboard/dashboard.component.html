@@ -1,5 +1,24 @@
 <div class="container">
-  <h1 class="threeD_text">DASHBOARD</h1>
+  <div class="header">
+    <h1 class="threeD_text">DASHBOARD</h1>
+    @if(connected() && isServerHealth) {
+      <div class="status connected">
+        <span class="message">
+          <p>Conectado</p>
+          <fa-icon [icon]="faCircleCheck" size="sm"/>
+        </span>
+        <button (click)="disconnect()">DESCONECTAR</button>
+      </div>
+      } @else if(!connected() && isServerHealth){
+      <div class="status disconnected">
+        <span class="message">
+          <p>Desconectado</p>
+          <fa-icon [icon]="faLinkSlash" size="sm"/>
+        </span>
+        <button (click)="manualConnect()">CONECTAR</button>
+      </div>
+    }
+  </div>
   @if (loading) {
       <app-spinner></app-spinner>
     } @else if (!isServerHealth){
@@ -15,11 +34,19 @@
     @if(!mining) {
       <div class="moduleContainer notMining pilacoin">
         <h2>Pilacoin</h2>
-        <button class="miningBtn" (click)="startMiningPilacoins()">
-          <fa-icon [icon]="faHammer" size="sm"></fa-icon>
-          <p>MINERAR</p>
-          <div></div>
-        </button>
+        @if(connected()) {
+          <button class="miningBtn" (click)="startMiningPilacoins()">
+            <fa-icon [icon]="faHammer" size="sm"></fa-icon>
+            <p>MINERAR</p>
+            <div></div>
+          </button>
+          } @else {
+          <button class="miningBtn" (click)="startMiningPilacoins()" disabled>
+            <fa-icon [icon]="faHammer" size="sm"></fa-icon>
+            <p>MINERAR</p>
+            <div></div>
+          </button>
+          }
       </div>
       } @else {
       <div class="moduleContainer mining pilacoin">
@@ -55,11 +82,19 @@
       @if(!miningBlocks) {
       <div class="moduleContainer notMining block">
         <h2>Blocos</h2>
-        <button class="miningBtn" (click)="startMiningBlocks()">
-          <fa-icon [icon]="faHammer" size="sm"></fa-icon>
-          <p>MINERAR</p>
-          <div></div>
-        </button>
+        @if(connected()) {
+          <button class="miningBtn" (click)="startMiningBlocks()">
+            <fa-icon [icon]="faHammer" size="sm"></fa-icon>
+            <p>MINERAR</p>
+            <div></div>
+          </button>
+        } @else {
+          <button class="miningBtn" (click)="startMiningBlocks()" disabled>
+            <fa-icon [icon]="faHammer" size="sm"></fa-icon>
+            <p>MINERAR</p>
+            <div></div>
+          </button>
+        }
       </div>
       }  @else {
       <div class="moduleContainer notMining block">

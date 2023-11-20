@@ -15,6 +15,14 @@ export class StompService {
 
   constructor() { }
 
+  openNewConnection(callback) {
+    this.socket = new SockJS('http://192.168.1.110:8080/mining');
+    this.stompClient = Stomp.over(this.socket);
+    this.stompClient.connect({}, () => {
+      callback();
+    })
+  }
+
   subscribe(topic: string, callback: any, id: any): any {
     const connected: boolean = this.stompClient.connected;
     if(connected) {

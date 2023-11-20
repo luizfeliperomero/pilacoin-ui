@@ -1,7 +1,7 @@
 import { Component, signal, effect} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faHammer, faScrewdriverWrench, faStop } from '@fortawesome/free-solid-svg-icons';
+import { faHammer, faScrewdriverWrench, faStop, faCircleCheck, faLinkSlash} from '@fortawesome/free-solid-svg-icons';
 import { DashboardService } from '../../services/dashboard.service';
 import { SpinnerComponent } from '../spinner/spinner.component';
 import { ServerDownMsgComponent } from '../server-down-msg/server-down-msg.component';
@@ -25,6 +25,8 @@ export class DashboardComponent {
   faHammer = faHammer;
   faScrewdriverWrench = faScrewdriverWrench;
   faStop = faStop;
+  faCircleCheck = faCircleCheck;
+  faLinkSlash = faLinkSlash;
   mining: boolean;
   pilacoins_total = signal<number>(0);
   barChartDataRecord: Record<string, number> = {};
@@ -38,18 +40,15 @@ export class DashboardComponent {
   miningBlocks: boolean = false;
   isServerHealth: boolean;
   loading: boolean = true;
+  columnChart = null;
+  barChart = null;
+  connected = signal<boolean>(true);
+  forceDisconnect: boolean = false;
 
   constructor(private blockService: BlockService, private pilacoinService: PilacoinService, private dashboardService: DashboardService, private stompService: StompService) {
-    effect(() => {
-      if(this.columnChartDataArray() != null) {
-        this.drawColumnChart(this.columnChartDataArray());
-      }
-    });
-    effect(() => {
-      if(this.barChartDataArray() != null) {
-        this.drawBarChart(this.barChartDataArray());
-      }
-    });
+    this.setConnectedSignal();
+    effect(() => {this.drawColumnChart(this.columnChartDataArray());});
+    effect(() => {this.drawBarChart(this.barChartDataArray());});
     this.dashboardService.healthCheck().subscribe((success) => {
       this.isServerHealth = true;
       this.loading = false;
@@ -63,19 +62,28 @@ export class DashboardComponent {
     );
   }
 
+  setConnectedSignal() {
+    this.connected.set(this.stompService.stompClient.connected);
+  }
+
   ngOnDestroy() {
+      localStorage.setItem("mining", JSON.stringify(this.mining));
+      localStorage.setItem("forceDisconnect", JSON.stringify(this.forceDisconnect));
+      localStorage.setItem("connected", JSON.stringify(this.connected()));
   }
 
 
   ngOnInit() {
     this.mining = localStorage.getItem("mining") == "true";
-    if(!this.stompService.stompClient.connected) {
+    this.connected.set(localStorage.getItem("connected") == "true");
+    this.forceDisconnect = localStorage.getItem("forceDisconnect") == "true";
+    if(!this.stompService.stompClient.connected && !this.forceDisconnect) {
       this.stompService.stompClient.connect({}, () => {
         if(this.mining) {
           this.getPilacoinsFoundPerThread();
         }
       });
-    } else if(this.mining) {
+    } else if(this.mining && !this.forceDisconnect) {
       this.getPilacoinsFoundPerThread();
     }
     this.miningBlocks = localStorage.getItem("miningBlocks") == "true";
@@ -83,7 +91,6 @@ export class DashboardComponent {
   }
 
   getPilacoinsFoundPerDifficulty() {
-    console.log("PER DIFFICULTY 1");
     this.stompService.subscribe("/topic/pilacoins_found_per_difficulty", (data: any) => {
       let entries = Object.entries(data);
 
@@ -115,25 +122,43 @@ export class DashboardComponent {
     this.getPilacoinsFoundPerDifficulty();
   }
 
+  manualConnect() {
+    this.stompService.openNewConnection(() => {
+      this.connected.set(this.stompService.stompClient.connected);
+      localStorage.setItem("connected", JSON.stringify(this.connected()));
+      this.forceDisconnect = false;
+      localStorage.setItem("forceDisconnect", JSON.stringify(this.forceDisconnect));
+    });
+  }
 
   drawColumnChart(data) {
-      let columnChartData = google.visualization.arrayToDataTable([["Thread", "Pilacoins"]].concat(data));
-      let columnChart = new google.charts.Bar(document.getElementById("columnChart"));
-      let options = {
-        title: "Pilacoins por Thread",
-        colors:['#FF7F50']
+      if(data != null) {
+        let columnChartData = google.visualization.arrayToDataTable([["Thread", "Pilacoins"]].concat(data));
+          console.log("1");
+        if(this.columnChart == null) {
+          console.log("2");
+          this.columnChart = new google.charts.Bar(document.getElementById("columnChart"));
+        }
+        let options = {
+          title: "Pilacoins por Thread",
+          colors:['#FF7F50']
+        }
+        this.columnChart.draw(columnChartData, google.charts.Bar.convertOptions(options));
       }
-      columnChart.draw(columnChartData, google.charts.Bar.convertOptions(options));
   }
 
   drawBarChart(data) {
-      let barChartData = google.visualization.arrayToDataTable([["Dificuldade", "Pilacoins"]].concat(data));
-      let barChart = new google.visualization.BarChart(document.getElementById("barChart"));
-      let options = {
-        title: "Pilacoins por Dificuldade",
-        colors: ['#00008B']
+      if(data != null) {
+        let barChartData = google.visualization.arrayToDataTable([["Dificuldade", "Pilacoins"]].concat(data));
+        if(this.barChart == null) {
+          this.barChart = new google.visualization.BarChart(document.getElementById("barChart"));
+        }
+        let options = {
+          title: "Pilacoins por Dificuldade",
+          colors: ['#00008B']
+        }
+        this.barChart.draw(barChartData, options);
       }
-      barChart.draw(barChartData, options);
   }
 
   startMiningPilacoins() {
@@ -160,17 +185,32 @@ export class DashboardComponent {
   disconnect() {
     if(this.stompService.stompClient.connected) {
       this.stompService.stompClient.disconnect();
+      this.connected.set(false);
+      localStorage.setItem("connected", JSON.stringify(false));
+      this.stop();
+      this.forceDisconnect = true;
+      localStorage.setItem("forceDisconnect", JSON.stringify(this.forceDisconnect));
+      this.miningBlocks = false;
+      localStorage.setItem("miningBlocks", JSON.stringify(this.mining));
     }
   }
 
-  stop(): void {
+  processBeforeStopMiningPilacoins() {
     this.mining = false;
     this.stompService.stompClient.unsubscribe(this.totalPilacoinsHeader.id);
     this.stompService.stompClient.unsubscribe(this.pilacoinsFoundPerThreadHeader.id);
     this.stompService.stompClient.unsubscribe(this.pilacoinsFoundPerDifficultyHeader.id);
+    this.columnChart = null;
+    this.barChart = null;
     localStorage.setItem("mining", JSON.stringify(this.mining));
-    this.pilacoinService.stopMining().subscribe();
     this.clearChartData();
+  }
+
+  stop(): void {
+    if(this.mining) {
+      this.pilacoinService.stopMining().subscribe();
+    }
+    this.processBeforeStopMiningPilacoins();
   }
 
   clearChartData() {

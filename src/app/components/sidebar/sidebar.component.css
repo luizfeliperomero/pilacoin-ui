@@ -48,3 +48,14 @@
     float: none;
   }
 }
+
+.header {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+img {
+  width: 45px;
+  height: 65px;
+}

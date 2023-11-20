@@ -29,6 +29,16 @@
   border-radius: 10px;
 }
 
+.miningBtn:disabled {
+  color: rgb(150, 150, 150);
+}
+
+.miningBtn:disabled:hover {
+  color: rgb(150, 150, 150);
+  background-color: #386754;
+  cursor: default;
+}
+
 .miningBtn {
   padding: 5px;
   width: 300px;
@@ -120,29 +130,64 @@
   box-shadow: 0 4px 8px 0 #8A2BE2;
 }
 
-.threeD_text{
-    text-transform: uppercase;
-    font-size: 2em;
-    font-weight: 700;
-    color: #f5f5f5;
-    text-shadow: 1px 1px 1px #919191,
-        1px 2px 1px #919191,
-        1px 3px 1px #919191,
-        1px 4px 1px #919191,
-        1px 5px 1px #919191,
-        1px 6px 1px #919191,
-        1px 7px 1px #919191,
-        1px 8px 1px #919191,
-        1px 9px 1px #919191,
-        1px 10px 1px #919191,
-    1px 18px 6px rgba(16,16,16,0.4),
-    1px 22px 10px rgba(16,16,16,0.2),
-    1px 25px 35px rgba(16,16,16,0.2),
-    1px 30px 60px rgba(16,16,16,0.4);
+.status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
-.threeD_text:hover {
-  transform: scale(1.05);
-  transition-duration: 2s;
-  cursor: pointer;
+.status button {
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.status span {
+  font-size: 12px;
+}
+
+.connected span {
+  color: #66FF00;
+}
+
+.connected button {
+  background-color: #fd5c63;
+  color: #fff;
+  border: 2px solid #fd5c63;
+}
+
+.connected button:hover {
+  background-color: transparent;
+  border: 2px solid #fd5c63;
+  color: #fd5c63;
+}
+
+.disconnected span {
+  color: #d3d3d3;
+}
+
+.disconnected button {
+  background-color: #007FFF;
+  color: #fff;
+  border: 2px solid #007fff;
+}
+
+.disconnected button:hover {
+  color: #007FFF;
+  background-color: transparent;
+  border: 2px solid #007FFF;
+}
+
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.message {
+  display: flex;
+  gap: 5px;
 }

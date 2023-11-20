@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="51.369061mm"
+   height="48.113277mm"
+   viewBox="0 0 51.369061 48.113277"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   sodipodi:docname="pilacoin_logo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:lockguides="true"
+     inkscape:zoom="1.0343421"
+     inkscape:cx="321.46039"
+     inkscape:cy="147.43672"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <rect
+       x="360.95639"
+       y="280.28812"
+       width="97.075394"
+       height="109.38072"
+       id="rect1" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-80.891352,-59.795359)">
+    <ellipse
+       style="fill:#2aaa8a;fill-opacity:1;stroke-width:0.264999;stroke-linejoin:round"
+       id="path1"
+       cx="106.57588"
+       cy="83.851997"
+       rx="25.68453"
+       ry="24.056639" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.56997796,0,0,0.48027859,-112.6867,-46.907928)"
+       id="text1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:96px;line-height:0;font-family:Serif;-inkscape-font-specification:Serif;white-space:pre;shape-inside:url(#rect1);fill:#ffffff;stroke-width:1.00157;stroke-linejoin:round"><tspan
+         x="360.95703"
+         y="305.50066"
+         id="tspan2">P</tspan></text>
+    <rect
+       style="fill:#ffffff;stroke-width:0.345958;stroke-linejoin:round"
+       id="rect2"
+       width="2.5322776"
+       height="5.0645556"
+       x="107.11994"
+       y="85.424377" />
+    <rect
+       style="fill:#ffffff;stroke-width:0.345958;stroke-linejoin:round"
+       id="rect2-2"
+       width="2.5322776"
+       height="5.0645556"
+       x="113.99008"
+       y="84.582695" />
+    <rect
+       style="fill:#ffffff;stroke-width:0.345958;stroke-linejoin:round"
+       id="rect2-7"
+       width="2.5322776"
+       height="5.0645556"
+       x="106.63587"
+       y="65.475441" />
+    <rect
+       style="fill:#ffffff;stroke-width:0.345958;stroke-linejoin:round"
+       id="rect2-6"
+       width="2.5322776"
+       height="5.0645556"
+       x="114.04524"
+       y="66.293755" />
+  </g>
+</svg>
