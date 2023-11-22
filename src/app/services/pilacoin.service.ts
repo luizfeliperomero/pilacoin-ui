@@ -10,8 +10,8 @@ export class PilacoinService {
 
   constructor(private http: HttpClient) {}
 
-  getPilacoins(): Observable<any>{
-    return inject(HttpClient).get<any>("http://192.168.1.110:8080/pilacoin/getAll");
+  public getPilacoins(offset: number, size: number, field: string): Observable<any>{
+    return this.http.get<any>(`http://192.168.1.110:8080/pilacoin/paginationAndSort/${offset}/${size}/${field}`);
   }
 
   public startMining(): Observable<any> {
@@ -22,8 +22,8 @@ export class PilacoinService {
     return this.http.get<any>("http://192.168.1.110:8080/pilacoin/stopMining");
   }
 
-  public getMiningData(): Observable<any> {
-    return this.http.get<any>("http://192.168.1.110:8080/pilacoin_mining_data/list");
+  public getMiningData(offset: number, size: number, field: string): Observable<any>{
+    return this.http.get<any>(`http://192.168.1.110:8080/pilacoin_mining_data/list/${offset}/${size}/${field}`);
   }
 
 }

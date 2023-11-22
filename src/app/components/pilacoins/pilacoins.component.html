@@ -6,9 +6,18 @@
     <p class="title">PILACOINS</p>
     <input class="search" placeholder="Pesquisar">
   </div>
+  <mat-paginator
+      [pageSize]="10"
+      [showFirstLastButtons]="true"
+      [pageSizeOptions]="[10, 15, 20, 25, 30, 35]"
+      [length]="10000"
+      [pageIndex]="currentPage"
+      (page)="handlePageEvent($event)"
+  >
+  </mat-paginator>
   <div class="pilacoins">
-    @if (pilacoins.length != 0) {
-      @for (pilacoin of pilacoins; track pilacoin.id) {
+    @if (pilacoins().length != 0) {
+      @for (pilacoin of pilacoins(); track pilacoin.id) {
         <app-pilacoin [pilacoin]="pilacoin"></app-pilacoin>
       }
       } @else if(serverDown){
