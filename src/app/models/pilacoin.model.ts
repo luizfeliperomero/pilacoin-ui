@@ -3,5 +3,8 @@ export interface Pilacoin {
   chaveCriador: String;
   nomeCriador: String;
   nonce: String;
+  status: String;
+  noncePila: String;
+  transacoes: any[];
   id: number;
 }

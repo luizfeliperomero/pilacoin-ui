@@ -25,18 +25,23 @@ export class PilacoinsComponent {
     effect(() => {
       this.totalPilacoins = this.pilacoins().length;
     });
-    this.getPilacoins(0, 10, this.paginationField);
+    this.refreshPilacoins();
   }
 
   getPilacoins(offset: number, size: number, field: string) {
     this.pilacoinService.getPilacoins(offset, size, field).subscribe((data: any) => {
-      console.log("getting data");
       this.pilacoins.set(data.content);
       this.serverDown = false;
     },
     (error: any) => {
       this.serverDown = true;
     })
+  }
+
+  refreshPilacoins() {
+    this.pilacoinService.refreshPilacoins().subscribe(() => {
+      this.getPilacoins(0, 10, this.paginationField);
+    });
   }
 
   handlePageEvent(pageEvent: PageEvent) {
