@@ -1,0 +1,34 @@
+.dialog {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  flex-direction: column;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+
+ .transfer.success {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Adjust the last value (0.5) for the transparency level */
+    z-index: 9999; /* Adjust the z-index to make sure it's above other elements */
+}
+
+.msg {
+  padding: 50px;
+  color: #66FF00;
+  font-weight: bold;
+  display: flex;
+  gap: 10px;
+}

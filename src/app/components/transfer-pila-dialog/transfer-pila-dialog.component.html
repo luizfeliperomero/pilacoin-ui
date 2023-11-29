@@ -1,0 +1,27 @@
+<div class="dialog">
+  <h1 mat-dialog-title>Transferir</h1>
+  <form [formGroup]="form" (ngSubmit)="transfer()">
+  <div mat-dialog-content>
+    <mat-form-field align="center">
+      <mat-label>Usuário de Destino</mat-label>
+      <mat-select (selectionChange)="onUserSelected($event)">
+        @for(u of users; track u.id) {
+        <mat-option [value]="u">{{ u.nome }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+  </form>
+  <div mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close color="warn">Fechar</button>
+    <button mat-raised-button color="primary" (click)="transfer()" >Transferir</button>
+  </div>
+</div>
+@if(showSuccessMsg) {
+  <div class="transfer success">
+    <div class="msg">
+      <p>Pilacoin Transferido Com Sucesso!</p>
+      <fa-icon [icon]="faCircleCheck" size="sm"/>
+    </div>
+  </div>
+}

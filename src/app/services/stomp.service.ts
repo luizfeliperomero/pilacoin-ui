@@ -1,22 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Observable, of} from 'rxjs';
-import * as SockJS from 'sockjs-client';
+import SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
 import { webSocket } from 'rxjs/webSocket';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StompService {
-  private url: string = "http://192.168.1.110:8080";
-
-  socket = new SockJS('http://192.168.1.110:8080/mining');
+  socket = new SockJS(`${environment.SERVER_API}/mining`);
   stompClient = Stomp.over(this.socket);
 
   constructor() { }
 
   openNewConnection(callback) {
-    this.socket = new SockJS('http://192.168.1.110:8080/mining');
+    this.socket = new SockJS(`${environment.SERVER_API}/mining`);
     this.stompClient = Stomp.over(this.socket);
     this.stompClient.connect({}, () => {
       callback();

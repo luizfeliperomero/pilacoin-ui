@@ -6,6 +6,7 @@
     <p class="title">PILACOINS</p>
     <input class="search" placeholder="Pesquisar">
   </div>
+  @if(pilacoins().length != 0) {
   <mat-paginator
       [pageSize]="10"
       [showFirstLastButtons]="true"
@@ -15,14 +16,18 @@
       (page)="handlePageEvent($event)"
   >
   </mat-paginator>
+    }
   <div class="pilacoins">
-    @if (pilacoins().length != 0) {
+    @if (pilacoins().length != 0 ) {
       @for (pilacoin of pilacoins(); track pilacoin.id) {
         <app-pilacoin [pilacoin]="pilacoin"></app-pilacoin>
       }
       } @else if(serverDown){
         <app-server-down-msg></app-server-down-msg>
-        } @else {
+        }  @else if(retrievedPilacoins) {
+        <h1>Nenhum Pilacoin Válido Minerado</h1>
+        }
+        @else {
           <app-spinner></app-spinner>
         }
   </div>

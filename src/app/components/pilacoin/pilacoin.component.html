@@ -12,8 +12,10 @@
       <p class="label">Status:</p>
       @if(pilacoin.status == "VALIDO") {
         <p class="value">Válido</p>
-      }
+        } @else {
+        <p class="value">{{ pilacoin.status }}</p>
+        }
     </div>
   </div>
-  <button class="transferBtn">TRANSFERIR</button>
+  <button class="transferBtn" (click)="openDialog()">TRANSFERIR</button>
 </div>

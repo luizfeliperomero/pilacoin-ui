@@ -15,11 +15,12 @@ import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
   styleUrl: './pilacoins.component.css'
 })
 export class PilacoinsComponent {
-  pilacoins = signal<Pilacoin[]>([]);
+  pilacoins = signal<Pilacoin[]>(null);
   serverDown: boolean = false;
   totalPilacoins: number = 0;
   currentPage = 0;
   paginationField: string = "dataCriacao";
+  retrievedPilacoins: boolean = false;
 
   constructor(private pilacoinService: PilacoinService){
     effect(() => {
@@ -31,11 +32,16 @@ export class PilacoinsComponent {
   getPilacoins(offset: number, size: number, field: string) {
     this.pilacoinService.getPilacoins(offset, size, field).subscribe((data: any) => {
       this.pilacoins.set(data.content);
+      this.retrievedPilacoins = true;
       this.serverDown = false;
     },
     (error: any) => {
       this.serverDown = true;
     })
+  }
+
+  ngOnDestroy() {
+      this.retrievedPilacoins = false;
   }
 
   refreshPilacoins() {
@@ -48,4 +54,5 @@ export class PilacoinsComponent {
     this.currentPage = pageEvent.pageIndex;
     this.getPilacoins(pageEvent.pageIndex, pageEvent.pageSize, this.paginationField);
   }
+
 }
