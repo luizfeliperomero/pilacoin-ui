@@ -5,9 +5,10 @@
   gap: 50px;
   padding: 5%;
   background-color: #36454F;
-  height: 100%;
-  top:0; left:0;
-  z-index:-1;
+  min-height: 100%;
+}
+.title {
+  color: #fff;
 }
 .serverDown {
   display: flex;

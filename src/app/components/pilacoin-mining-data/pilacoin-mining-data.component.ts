@@ -11,4 +11,5 @@ import { PilacoinMiningData } from '../../models/pilacoin-mining-data.model';
 })
 export class PilacoinMiningDataComponent {
   @Input() pilacoinMiningData: PilacoinMiningData;
+
 }

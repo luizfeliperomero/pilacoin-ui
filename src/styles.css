@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 * {
   padding: 0;
@@ -7,13 +8,19 @@
   box-sizing: border-box;
 }
 
+html {
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
+}
+
 body {
   font-family: "Poppins", sans-serif;
   position:fixed;
   padding:0;
   position: fixed;
-  height: 100%;
   width: 100%;
+  height: 100%;
 }
 
 .container {
